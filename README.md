@@ -11,7 +11,7 @@ Functional Requirements:
 - The cycle should repeat continuously.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-__2. Title: Counter Control System Using MCU__
+__2. Title: Counter Control System Using Ardiuno uno__
 
 Objective:
 Write an Embedded C program that performs the following functions:
