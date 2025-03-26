@@ -765,4 +765,166 @@ void loop() {
 
 ____________________________________________________________________________________________________________________________________
 
+__9. Title: DHT11 Temperature and Humidity Sensor Interfacing with Arduino uno__
+
+*Objective:* Write an Embedded C program to interface a DHT11 Temperature and Humidity Sensor with the Arduino uno that performs the following tasks:
+
+Read temperature and humidity data from the DHT11 sensor.\
+Display the sensor readings on an LCD display.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno.
+ - DHT11 Temperature & Humidity Sensor – To measure environmental conditions.
+ - 16x2 LCD Display – To display sensor readings.
+ - 5V Power Supply – To power the components.
+ - Resistor (10KΩ) (Optional) – For stable signal transmission.
+ - Breadboard & Jumper Wires – For circuit assembly.
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/dae84803-4f3e-453e-94ee-61e2d9eb4243)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proteus
+
+__4. Working of the Project:__\
+System Initialization:
+ - The DHT11 sensor is initialized using dht.begin().
+ - The LCD is configured using lcd.begin(16, 2).
+
+Reading Sensor Data:
+ - The DHT11 sensor outputs temperature and humidity data.
+ - The temperature is read using dht.readTemperature().
+ - The humidity is read using dht.readHumidity().
+
+Displaying Data on LCD:
+ - The temperature (°C) and humidity (%) are displayed on the 16x2 LCD.
+ - If the sensor fails to read, the LCD displays “Sensor Error”.
+ - The data refreshes every 2 seconds.
+
+__Hardware Simulation:__
+
+__Project Code:__
+```
+#include <Arduino.h>
+#include <DHT.h>
+#include <LiquidCrystal.h>
+// DHT11 Configuration
+#define DHTPIN 2    // DHT11 data pin connected to Arduino pin 2
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+// LCD Configuration
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // LCD Pins
+void setup() {
+    lcd.begin(16, 2); // Initialize LCD
+    dht.begin();     // Initialize DHT sensor
+    lcd.print("DHT11 Monitor");
+    delay(2000);
+    lcd.clear();
+}
+void loop() {
+    float temperature = dht.readTemperature(); // Read temperature in Celsius
+    float humidity = dht.readHumidity();       // Read humidity percentage
+    if (isnan(temperature) || isnan(humidity)) {
+        lcd.setCursor(0, 0);
+        lcd.print("Sensor Error");
+    } else {
+        lcd.setCursor(0, 0);
+        lcd.print("Temp: ");
+        lcd.print(temperature);
+        lcd.print(" C");
+        lcd.setCursor(0, 1);
+        lcd.print("Humidity: ");
+        lcd.print(humidity);
+        lcd.print(" %");
+    }
+    delay(2000); // Refresh every 2 seconds
+}
+```
+
+_____________________________________________________________________________________________________________________________________
+__10. Title: Fire Sensor Interfacing with Arduino uno__
+
+*Objective:* Write an Embedded C program to interface a Fire Sensor (Flame Sensor) with the Arduino uno that performs the following tasks:
+
+Detect the presence of fire or flame using the fire sensor.\
+Display "Fire Detected" or "No Fire" on an LCD display or Serial Monitor.\
+If fire is detected, activate a buzzer or LED alert for warning.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno.
+ - Fire Sensor (Flame Sensor - IR based) – To detect fire or flame presence.
+ - Buzzer – To give an alert when fire is detected.
+ - 16x2 LCD Display – To display sensor status.
+ - 5V Power Supply – To power the components.
+ - Resistors (Optional) – For stable signal transmission.
+ - Breadboard & Jumper Wires – For circuit assembly.
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/674204cb-c1cb-472b-9cf8-b081d405cd82)
+
+__3. Software Used:__
+ - Arduino IDE
+ - proteus
+
+__4. Working of the Project:__\
+System Initialization:
+ - The Fire Sensor and LCD are initialized using pinMode() and lcd.begin(16, 2).
+ - The Buzzer is set to LOW (Off state) initially.
+
+Fire Detection Logic:
+ - The Fire Sensor continuously reads analog values from A0.
+ - If sensor value > 500, the system detects fire and:
+ - Displays "Fire Detected!" on the LCD.
+ - Activates the buzzer (HIGH) as an alert.
+ - If sensor value <= 500, the system detects no fire and:
+ - Displays "No Fire" on the LCD.
+ - Turns off the buzzer (LOW).
+
+Alert System:
+ - The buzzer rings continuously when fire is detected.
+ - The LCD updates every 500ms to ensure real-time fire monitoring.
+
+__Software Simulation:__
+![image](https://github.com/user-attachments/assets/7c39eaef-a21e-450e-982f-ccf9f0f51f7d)
+
+__Hardware Simulation:__
+
+__Project Code:__
+```
+#include <Arduino.h>
+#include <LiquidCrystal.h>
+// Fire Sensor and Buzzer Pins
+#define FIRE_SENSOR_PIN A0 // Analog pin connected to the fire sensor output
+#define BUZZER_PIN 3       // Buzzer pin for alert
+// LCD Configuration
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // LCD Pins
+void setup() {
+    pinMode(FIRE_SENSOR_PIN, INPUT);
+    pinMode(BUZZER_PIN, OUTPUT);
+    lcd.begin(16, 2); // Initialize LCD
+    lcd.print("Fire Sensor");
+    delay(2000);
+    lcd.clear();
+}
+void loop() {
+    int sensorValue = analogRead(FIRE_SENSOR_PIN); // Read analog value
+    // Fire detection logic (higher voltage typically indicates fire presence)
+    if (sensorValue > 500) { // Threshold value may vary with sensor
+        lcd.setCursor(0, 0);
+        lcd.print("Fire Detected!");
+        digitalWrite(BUZZER_PIN, HIGH); // Activate buzzer for alert
+    } else {
+        lcd.setCursor(0, 0);
+        lcd.print("No Fire       ");
+        digitalWrite(BUZZER_PIN, LOW); // Deactivate buzzer
+    }
+    delay(500); // Refresh every 500ms
+}
+```
+
+____________________________________________________________________________________________________________________________________
+
+
+
 
