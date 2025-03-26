@@ -925,6 +925,61 @@ void loop() {
 
 ____________________________________________________________________________________________________________________________________
 
+__11. Title: LED Blinking__
+
+*Objective:* To understand and implement LED control using a microcontroller by turning it on and off at a fixed interval.
+
+*Description:*\
+LED blinking is a basic embedded system project that involves programming a microcontroller to toggle an LED using GPIO pins. A delay function controls the blinking rate, demonstrating digital output control and timing functions.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno
+ - LED – Light Emitting Diode for visual indication
+ - Current Limiting Resistor (220Ω - 1kΩ) – To protect the LED from excessive current
+ - 5V Power Supply – To power the circuit
+ - Breadboard & Jumper Wires – For connections
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/996fe292-bbb2-40a3-8561-5b79b0043a1e)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proteus
+
+__5. Working of the Project:__\
+System Initialization:
+ - The LED is connected to Pin 13 of the microcontroller.
+ - The pinMode(13, OUTPUT) function sets Pin 13 as an output.
+
+Blinking Logic:
+ - The digitalWrite(13, LOW) turns the LED OFF.
+ - The delay(5000) keeps it OFF for 5 seconds.
+ - The digitalWrite(13, HIGH) turns the LED ON.
+ - Another delay(5000) keeps it ON for 5 seconds.
+ - The cycle repeats indefinitely.
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/93ed8ccc-6932-4c53-85ac-836d9231ff22)
+
+__Hardware Simulation:__
+
+__Project Code:__
+```
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  // put your main code here, to run repeatedly:
+ digitalWrite(13, LOW);
+ delay(5000);
+ digitalWrite(13, HIGH);
+ delay(5000);
+}
+```
+
+______________________________________________________________________________________________________________________________________
 
 
 
