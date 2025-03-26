@@ -979,7 +979,7 @@ Continuously read the distance value from the Sharp Distance Sensor.\
 Display the distance value (in cm) and voltage (in V) on an LCD display.
 
 __1. Hardware Components Required:__
- - Microcontroller (MCU) - Arduino Uno (or any compatible MCU)
+ - Microcontroller (MCU) - Arduino Uno.
  - Sharp IR Distance Sensor (e.g., GP2Y0A21YK) – To measure distance
  - 16x2 LCD Display – To display distance and voltage values
  - 10KΩ Potentiometer – For LCD contrast adjustment
@@ -1053,7 +1053,7 @@ Display the measured distance on an LCD display or Serial Monitor.\
 If the detected distance is less than 10 cm, activate a buzzer or LED alert for warning.
 
 __1. Hardware Components Required:__
- - Microcontroller (MCU) - Arduino Uno (or any compatible MCU)
+ - Microcontroller (MCU) - Arduino uno.
  - Ultrasonic Sensor (HC-SR04) – To measure object distance
  - 16x2 LCD Display – To display distance values
  - Buzzer – For alerting when distance is below 10 cm
