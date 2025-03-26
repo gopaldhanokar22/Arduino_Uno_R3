@@ -40,6 +40,30 @@ __Software Simulation:__
 
 __Hardware Simulation:__
 
+
+__Working:__\
+Traffic Light Sequence:\
+Step 1 (Stop Signal - Red LED ON)
+  - The Red LED turns ON.
+  - This indicates that vehicles must stop.-
+  - It remains ON for 5 seconds.
+  - After 5 seconds, it turns OFF.\
+
+Step 2 (Get Ready Signal - Yellow LED ON)\
+  - The Yellow LED turns ON.
+  - This acts as a transition phase, warning vehicles to get ready.
+  - It remains ON for 2 seconds.
+  - After 2 seconds, it turns OFF.
+
+Step 3 (Go Signal - Green LED ON)
+  - The Green LED turns ON.
+  - This allows vehicles to move.
+  - It remains ON for 5 seconds.
+  - After 5 seconds, it turns OFF.
+
+Repeat Cycle:
+  - The sequence (Red → Yellow → Green) repeats continuously, just like real traffic lights at an intersection.\
+   
 __Project Code:__
 
 ```
@@ -83,26 +107,6 @@ void displayCounter(int value) {
     delay(500);  // Refresh delay for stability
 }
 ```
-
-__Working:__
-Traffic Light Sequence:
-Step 1 (Stop Signal - Red LED ON)
-            - The Red LED turns ON.
-            - This indicates that vehicles must stop.
-            - It remains ON for 5 seconds.
-            - After 5 seconds, it turns OFF.
-Step 2 (Get Ready Signal - Yellow LED ON)
-            - The Yellow LED turns ON.
-            - This acts as a transition phase, warning vehicles to get ready.
-            - It remains ON for 2 seconds.
-            - After 2 seconds, it turns OFF.
-Step 3 (Go Signal - Green LED ON)
-            - The Green LED turns ON.
-            - This allows vehicles to move.
-            - It remains ON for 5 seconds.
-            - After 5 seconds, it turns OFF.
-Repeat Cycle:
-            - The sequence (Red → Yellow → Green) repeats continuously, just like real traffic lights at an intersection.
 
 ___________________________________________________________________________________________________________________________________________________________
 
