@@ -402,5 +402,133 @@ void loop() {
     delay(1000);          // 1-second delay
 }
 ```
+______________________________________________________________________________________________________________________________________
+__5. Title: Basic Calculator Using Arduino uno and Keypad with LCD Display__
 
--------------------------------------------------------------------------------------------------------------------------------------
+*Objective:* Write an Embedded C  program to implement a basic calculator that performs the following arithmetic operations using a 4x4 keypad and a 16x2 LCD display:
+
+ - Addition (+)
+ - Subtraction (-)
+ - Multiplication (*)
+ - Division (/)
+
+Functional Requirements:
+ - The user should enter the first number.
+ - The user should then press an operator key (+, -, *, /).
+ - The user should enter the second number.
+ - Pressing the ‘#’ key should display the result on the LCD.
+ - Pressing the ‘*’ key should clear the display and reset the calculator.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno (or any other MCU).
+ - 16x2 LCD Display – To display user input and results.
+ - 4x4 Keypad – For entering numbers and operations.
+ - Jumper Wires – For making connections.
+ - Breadboard – For circuit assembly.
+ - 5V Power Supply – Provided via Arduino or an external source.
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/716b8635-3587-4ea6-a29b-a1c0f5731237)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proteus 
+
+__4. Working of the Project:__\
+System Initialization:
+ - The LCD is initialized using lcd.begin(16, 2).
+ - The message "Calculator Ready" is displayed for 2 seconds.
+ - The Keypad is set up for user input.
+
+User Input and Operation:
+ - The user enters the first number.
+ - The user presses an operator key (+, -, *, /).
+ - The user enters the second number.
+ - Pressing the ‘=’ key displays the result on the LCD.
+
+Reset Feature:
+ - Pressing the ‘C’ key clears the LCD and resets all values.
+
+Calculation Execution:
+ - The entered values and operator are processed using the calculateResult function.
+ - If division by zero is attempted, the system returns 0 to prevent errors.
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/7a3cc621-df36-40e6-ab20-0ee5d3912fb4)
+
+__Hardware Simulation:__
+
+__Project code:__
+```
+#include <LiquidCrystal.h>
+#include <Keypad.h>
+// LCD Pins (RS, EN, D4, D5, D6, D7)
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+// Keypad Configuration
+const byte ROWS = 4; // Four rows
+const byte COLS = 4; // Four columns
+char keys[ROWS][COLS] = {
+    {'1', '2', '3', '+'},
+    {'4', '5', '6', '-'},
+    {'7', '8', '9', '*'},
+    {'C', '0', '=', '/'}
+};
+byte rowPins[ROWS] = {A0, A1, A2, A3};
+byte colPins[COLS] = {A4, A5, 2, 3};
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+// Variables to store data
+char key;
+float num1 = 0, num2 = 0;
+char operatorSymbol;
+bool isOperatorSelected = false;
+void setup() {
+    lcd.begin(16, 2); // Initialize LCD
+    lcd.print("Calculator Ready");
+    delay(2000);
+    lcd.clear();
+}
+void loop() {
+    key = keypad.getKey();
+
+    if (key) {
+        if (key >= '0' && key <= '9') {
+            lcd.print(key);
+            if (!isOperatorSelected) {
+                num1 = (num1 * 10) + (key - '0');
+            } else {
+                num2 = (num2 * 10) + (key - '0');
+            }
+        } else if (key == '+' || key == '-' || key == '*' || key == '/') {
+            lcd.print(key);
+            operatorSymbol = key;
+            isOperatorSelected = true;
+        } else if (key == '=') {
+            lcd.setCursor(0, 1);
+            lcd.print("=");
+            float result = calculateResult(num1, num2, operatorSymbol);
+            lcd.print(result);
+        } else if (key == 'C') {
+            lcd.clear();
+            lcd.print("Calculator Ready");
+            delay(1000);
+            lcd.clear();
+            num1 = 0; num2 = 0;
+            isOperatorSelected = false;
+        }
+    }
+}
+// Calculation Logic
+float calculateResult(float n1, float n2, char op) {
+    switch (op) {
+        case '+': return n1 + n2;
+        case '-': return n1 - n2;
+        case '*': return n1 * n2;
+        case '/': return (n2 != 0) ? (n1 / n2) : 0; // Avoid division by zero
+        default: return 0;
+    }
+}
+```
+
+______________________________________________________________________________________________________________________________________
+
