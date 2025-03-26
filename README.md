@@ -68,43 +68,32 @@ __Project Code:__
 
 ```
 #include <Arduino.h>
-#define SWITCH1 2   // Reset Counter
-#define SWITCH2 3   // Increment Counter
-#define SWITCH3 4   // Decrement Counter
-#define DISPLAY A0  // Display pin (Analog pin used for simplicity)
-int counter = 0;  // Counter variable
+// Define LED pins
+const int redLED = 11;    // Red LED connected to pin 9
+const int yellowLED = 12; // Yellow LED connected to pin 10
+const int greenLED = 13;  // Green LED connected to pin 11
 void setup() {
-    pinMode(SWITCH1, INPUT_PULLUP);
-    pinMode(SWITCH2, INPUT_PULLUP);
-    pinMode(SWITCH3, INPUT_PULLUP);
-    pinMode(DISPLAY, OUTPUT);
-    Serial.begin(9600);  // For serial monitor display
+    // Set LED pins as output
+    pinMode(redLED, OUTPUT);
+    pinMode(yellowLED, OUTPUT);
+    pinMode(greenLED, OUTPUT);
 }
 void loop() {
-    if (digitalRead(SWITCH1) == LOW) {
-        counter = 0;    // Reset counter
-        Serial.println("Counter Reset to Zero");
-        delay(200);     // Debounce delay
-    }
-    if (digitalRead(SWITCH2) == LOW) {
-        counter++;     // Increment counter
-        Serial.print("Counter Incremented: ");
-        Serial.println(counter);
-        delay(200);     // Debounce delay
-    }
-    if (digitalRead(SWITCH3) == LOW) {
-        counter--;     // Decrement counter
-        Serial.print("Counter Decremented: ");
-        Serial.println(counter);
-        delay(200);     // Debounce delay
-    }
-    displayCounter(counter);  // Display updated counter value
-}
-// Function to simulate counter display (using Serial Monitor here)
-void displayCounter(int value) {
-    Serial.print("Current Counter Value: ");
-    Serial.println(value);
-    delay(500);  // Refresh delay for stability
+    // Red LED ON (Stop Signal)
+    digitalWrite(redLED, HIGH);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(greenLED, LOW);
+    delay(5000); // 5 seconds delay
+    // Yellow LED ON (Get Ready Signal)
+    digitalWrite(redLED, LOW);
+    digitalWrite(yellowLED, HIGH);
+    digitalWrite(greenLED, LOW);
+    delay(2000); // 2 seconds delay
+    // Green LED ON (Go Signal)
+    digitalWrite(redLED, LOW);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(greenLED, HIGH);
+    delay(5000); // 5 seconds delay
 }
 ```
 
