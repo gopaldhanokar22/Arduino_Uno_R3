@@ -981,5 +981,173 @@ void loop() {
 
 ______________________________________________________________________________________________________________________________________
 
+__12. Title: Sharp Distance Sensor Interfacing with Arduino uno__
+
+*Objective:* Write an Embedded C program to interface a Sharp Distance Sensor with the Arduino uno that performs the following tasks:
+
+Continuously read the distance value from the Sharp Distance Sensor.\
+Display the distance value (in cm) and voltage (in V) on an LCD display.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno (or any compatible MCU)
+ - Sharp IR Distance Sensor (e.g., GP2Y0A21YK) – To measure distance
+ - 16x2 LCD Display – To display distance and voltage values
+ - 10KΩ Potentiometer – For LCD contrast adjustment
+ - Connecting Wires – For interfacing components
+ - 5V Power Supply – To power the system
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/7e4057d7-4a0c-40b2-aad0-5407609b3c27)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proteus
+
+__5. Working of the Project:__\
+System Initialization:
+ - The Sharp Distance Sensor is connected to analog pin A0.
+ - The 16x2 LCD is initialized for displaying values.
+
+Reading the Sensor:
+ - The analogRead(SENSOR_PIN) reads the voltage output from the sensor.
+ - The voltage is converted to a distance value using a mathematical formula.
+
+Displaying the Data:
+ - The LCD shows the distance in cm.
+ - The LCD also shows the corresponding sensor output voltage.
+ - The values update every 500ms.
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/01da851f-b479-4677-b7de-3f4dbd0bae8d)
+
+__Project Code:__
+```
+#include <Arduino.h>
+#include <LiquidCrystal.h>
+// Sharp Distance Sensor and Buzzer Pins
+#define SENSOR_PIN A0 // Analog pin connected to the Sharp sensor output
+// LCD Configuration
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // LCD Pins
+void setup() {
+    pinMode(SENSOR_PIN, INPUT);
+    lcd.begin(16, 2); // Initialize LCD
+    lcd.print("Sharp Sensor");
+    delay(2000);
+    lcd.clear();
+}
+void loop() {
+    int sensorValue = analogRead(SENSOR_PIN); // Read analog value
+    float voltage = sensorValue * (5.0 / 1023.0); // Convert to voltage
+    // Distance estimation formula (varies by sensor model)
+    float distance = 27.86 * pow(voltage, -1.15); // Sample equation for GP2Y0A21YK sensor
+    lcd.setCursor(0, 0);
+    lcd.print("Dist: ");
+    lcd.print(distance);
+    lcd.print(" cm ");
+    lcd.setCursor(0, 1);
+    lcd.print("Volt: ");
+    lcd.print(voltage);
+    lcd.print(" V");
+    delay(500); // Refresh every 500ms
+}
+```
+____________________________________________________________________________________________________________________________________
+
+__13. Title: Ultrasonic Sensor (HC-SR04) Interfacing with Arduino uno__
+
+*Objective:* Write an Embedded C program to interface an Ultrasonic Sensor (HC-SR04) with the Arduino uno that performs the following tasks:
+
+Measure the distance of an object in centimeters (cm) using the ultrasonic sensor.
+Display the measured distance on an LCD display or Serial Monitor.\
+If the detected distance is less than 10 cm, activate a buzzer or LED alert for warning.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno (or any compatible MCU)
+ - Ultrasonic Sensor (HC-SR04) – To measure object distance
+ - 16x2 LCD Display – To display distance values
+ - Buzzer – For alerting when distance is below 10 cm
+ - 10KΩ Potentiometer – For LCD contrast adjustment
+ - Connecting Wires – For interfacing components
+ - 5V Power Supply – To power the system
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/1ce24422-0169-4bf3-a8ef-399f9aed6612)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proetus
+
+__5. Working of the Project:__\
+System Initialization:
+ - The HC-SR04 ultrasonic sensor is connected to pins 2 (Trig) and 3 (Echo).
+ - The LCD display is initialized for distance output.
+ - The Buzzer is connected to pin 4.
+
+Measuring Distance:
+ - The Trig pin is pulsed HIGH for 10µs.
+ - The Echo pin receives the reflected signal.
+ - The pulse duration is converted to distance using the speed of sound.
+
+Displaying the Data:
+ - The LCD shows the measured distance in cm.
+ - If the distance is below 10 cm, the buzzer is activated.
+ - The LCD displays an "ALERT: Object!" message.
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/f292163a-008b-4fac-9508-82090c11793c)
 
 
+__Hardware Simulation:__
+
+
+__Project Code:__
+```
+#include <Arduino.h>
+#include <LiquidCrystal.h>
+// Ultrasonic Sensor Pins
+#define TRIG_PIN 2
+#define ECHO_PIN 3
+#define BUZZER_PIN 4
+// LCD Configuration
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // LCD Pins
+void setup() {
+    pinMode(TRIG_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
+    pinMode(BUZZER_PIN, OUTPUT);
+    lcd.begin(16, 2); // Initialize LCD
+    lcd.print("Ultrasonic Sensor");
+    delay(2000);
+    lcd.clear();
+}
+float getDistance() {
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+    long duration = pulseIn(ECHO_PIN, HIGH);
+    float distance = (duration * 0.034) / 2; // Distance in cm
+    return distance;
+}
+void loop() {
+    float distance = getDistance();
+    lcd.setCursor(0, 0);
+    lcd.print("Dist: ");
+    lcd.print(distance);
+    lcd.print(" cm ");
+    if (distance < 10) {
+        digitalWrite(BUZZER_PIN, HIGH);
+        lcd.setCursor(0, 1);
+        lcd.print("ALERT: Object! ");
+    } else {
+        digitalWrite(BUZZER_PIN, LOW);
+        lcd.setCursor(0, 1);
+        lcd.print("                "); // Clear alert line
+    }
+    delay(500); // Refresh every 500ms
+}
+```
+
+-------------------------------------------------------------------------------------------------------------------------------------
