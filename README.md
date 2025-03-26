@@ -213,7 +213,7 @@ Each digit should be displayed with a 1-second delay.\
 The sequence should continuously repeat.
 
 __1. Hardware Components Required:__
- - Microcontroller (MCU) - Arduino Uno (or any other MCU).
+ - Microcontroller (MCU) - Arduino Uno.
  - 7-Segment Display (Common Cathode) – To display digits.
  - Resistors (220Ω - 1kΩ) – To limit current for segment LEDs.
  - Jumper Wires – For making connections.
@@ -310,7 +310,7 @@ Continuously update the second row with a counter value that increments every se
 Implement a clear screen feature using a push button that resets the counter and clears the LCD display.
 
 __1. Hardware Components Required:__
- - Microcontroller (MCU) - Arduino Uno (or any other MCU).
+ - Microcontroller (MCU) - Arduino Uno.
  - 16x2 LCD Display – To display text messages.
  - 10kΩ Potentiometer – To adjust LCD contrast.
  - Resistor (10kΩ) – For pull-down resistor (if required).
@@ -420,7 +420,7 @@ Functional Requirements:
  - Pressing the ‘*’ key should clear the display and reset the calculator.
 
 __1. Hardware Components Required:__
- - Microcontroller (MCU) - Arduino Uno (or any other MCU).
+ - Microcontroller (MCU) - Arduino Uno.
  - 16x2 LCD Display – To display user input and results.
  - 4x4 Keypad – For entering numbers and operations.
  - Jumper Wires – For making connections.
@@ -542,7 +542,7 @@ Switch 2 → Start the motor in Anti-clockwise direction.\
 Switch 3 → Stop the motor.
 
 __1. Hardware Components Required:__
- - Microcontroller (MCU) - Arduino Uno (or any other compatible MCU).
+ - Microcontroller (MCU) - Arduino Uno.
  - L298N Motor Driver Module – To drive the DC motor.
  - DC Motor – To be controlled.
  - 3 Push Buttons – To control motor direction and stop.
@@ -624,8 +624,8 @@ Button 3 → Move the servo motor to 180° position.\
 Display the servo angle on a connected LCD display\
 
 1. Hardware Components Required:
- - Microcontroller (MCU) - Arduino Uno (or any other compatible MCU).
- - Servo Motor (SG90 or MG995) – For angular motion.
+ - Microcontroller (MCU) - Arduino Uno 
+ - Servo Motor (SG90 ) – For angular motion.
  - 16x2 LCD Display – To show servo angle.
  - 3 Push Buttons – To control servo position.
  - 5V Power Supply – To power the components.
@@ -699,5 +699,70 @@ void loop() {
 ```
 
 _____________________________________________________________________________________________________________________________________
+
+__8. Title: Temperature Sensor (LM35) Interfacing with Arduino uno__
+
+*Objective:* Write an Embedded C program to interface an LM35 Temperature Sensor with the Arduino uno that performs the following tasks:
+
+Continuously read the temperature value from the LM35 sensor.\
+Display the temperature value on an LCD display or Serial Monitor.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno 
+ - LM35 Temperature Sensor – To measure temperature.
+ - 16x2 LCD Display – To display temperature readings.
+- 5V Power Supply – To power the components.
+- Breadboard & Jumper Wires – For circuit assembly.
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/30c05f1e-7de0-405c-9760-69467156f5eb)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proteus
+
+__5. Working of the Project:__
+ - System Initialization:
+ - The LCD is configured using lcd.begin(16, 2).
+ - The LM35 temperature sensor is connected to the analog pin A0.
+
+Reading Temperature Data:
+ - The LM35 outputs an analog voltage proportional to the temperature.
+ - The Arduino reads this analog voltage and converts it into a temperature value using:
+![image](https://github.com/user-attachments/assets/3db3495e-e1ca-410e-b9b7-ee581c0bd851)
+
+Displaying Temperature Data:
+ - The LCD displays the temperature value in Celsius.
+ - The temperature reading updates every second.
+
+__Software Simulation:__
+![image](https://github.com/user-attachments/assets/b917bb12-15f8-4602-9557-e266bf23e9a0)
+
+__Project Code:__
+```
+#include <Arduino.h>
+#include <LiquidCrystal.h>
+// LCD Configuration
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // LCD Pins
+// LM35 Temperature Sensor Pin
+#define LM35_PIN A0
+void setup() {
+    lcd.begin(16, 2); // Initialize the LCD
+    lcd.print("Temp Monitor");
+    delay(2000);
+    lcd.clear();
+}
+void loop() {
+    int sensorValue = analogRead(LM35_PIN); // Read analog value from LM35
+    float temperature = (sensorValue * 5.0 / 1023.0) * 100.0; // Convert to Celsius
+    lcd.setCursor(0, 0);
+    lcd.print("Temp: ");
+    lcd.print(temperature);
+    lcd.print(" C");
+    delay(1000); // Refresh every 1 second
+}
+```
+
+____________________________________________________________________________________________________________________________________
 
 
