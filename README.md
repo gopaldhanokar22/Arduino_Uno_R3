@@ -532,3 +532,172 @@ float calculateResult(float n1, float n2, char op) {
 
 ______________________________________________________________________________________________________________________________________
 
+__6. Title: DC Motor Control System Using Arduino uno__
+
+*Objective:* Write an Embedded C  program to interface a DC motor with Arduino uno that performs the following tasks:
+
+Use a 3-way switch system to control motor actions:\
+Switch 1 → Start the motor in Clockwise direction.\
+Switch 2 → Start the motor in Anti-clockwise direction.\
+Switch 3 → Stop the motor.
+
+__1. Hardware Components Required:__
+ - Microcontroller (MCU) - Arduino Uno (or any other compatible MCU).
+ - L298N Motor Driver Module – To drive the DC motor.
+ - DC Motor – To be controlled.
+ - 3 Push Buttons – To control motor direction and stop.
+ - 12V Power Supply – For the motor driver.
+ - Breadboard & Jumper Wires – For circuit assembly.
+
+__2. Hardware Connections:__
+![image](https://github.com/user-attachments/assets/1ad107ef-eefb-474a-adb7-f514aa75ea26)
+
+__3. Software Used:__
+ - Arduino IDE
+ - Proteus
+   
+__4. Working of the Project:__\
+System Initialization:
+ - The motor driver L298N is configured using pinMode().
+ - The switches are configured as inputs with internal pull-up resistors.
+ - The motor is initially in the STOP state.
+
+Motor Control Using Switches:
+ - Pressing Switch 1 rotates the motor clockwise by setting MOTOR_IN1 = HIGH and MOTOR_IN2 = LOW.
+ - Pressing Switch 2 rotates the motor anti-clockwise by setting MOTOR_IN1 = LOW and MOTOR_IN2 = HIGH.
+ - Pressing Switch 3 stops the motor by setting both MOTOR_IN1 = LOW and MOTOR_IN2 = LOW.
+
+Functionality Overview:
+ - The motor remains in the selected state until another switch is pressed.
+ - The motor stops when Switch 3 is pressed.
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/c0fbafcc-d8e8-4090-82ce-939b044fcdb7)
+
+__Hardware Simulation:__
+
+__Project Code:__
+```
+#include <Arduino.h>
+// Motor Driver Pins (L298N)
+#define MOTOR_IN1 5   // Motor Input 1 (Clockwise)
+#define MOTOR_IN2 6   // Motor Input 2 (Anti-clockwise)
+#define MOTOR_ENA 9   // Enable Pin for Motor Driver
+// Switch Pins
+#define SWITCH1 2 // Start Clockwise
+#define SWITCH2 3 // Start Anti-clockwise
+#define SWITCH3 4 // Stop Motor
+void setup() {
+    pinMode(MOTOR_ENA, OUTPUT);
+    pinMode(MOTOR_IN1, OUTPUT);
+    pinMode(MOTOR_IN2, OUTPUT);
+    pinMode(SWITCH1, INPUT_PULLUP);
+    pinMode(SWITCH2, INPUT_PULLUP);
+    pinMode(SWITCH3, INPUT_PULLUP);
+    digitalWrite(MOTOR_ENA, HIGH); // Enable the motor driver
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, LOW);
+}
+void loop() {
+    if (digitalRead(SWITCH1) == LOW) { // Clockwise Rotation
+        digitalWrite(MOTOR_IN1, HIGH);
+        digitalWrite(MOTOR_IN2, LOW);
+    } else if (digitalRead(SWITCH2) == LOW) { // Anti-clockwise Rotation
+        digitalWrite(MOTOR_IN1, LOW);
+        digitalWrite(MOTOR_IN2, HIGH);
+    } else if (digitalRead(SWITCH3) == LOW) { // Stop Motor
+        digitalWrite(MOTOR_IN1, LOW);
+        digitalWrite(MOTOR_IN2, LOW);
+    }
+}
+```
+______________________________________________________________________________________________________________________________________
+
+__7. Title: Servo Motor Control Using Arduino uno__
+
+*Objective:* Write an Embedded C program to interface a servo motor with the Arduino uno that performs the following tasks using push buttons:
+
+Button 1 → Move the servo motor to 0° position.\
+Button 2 → Move the servo motor to 90° position.\
+Button 3 → Move the servo motor to 180° position.\
+Display the servo angle on a connected LCD display\
+
+1. Hardware Components Required:
+ - Microcontroller (MCU) - Arduino Uno (or any other compatible MCU).
+ - Servo Motor (SG90 or MG995) – For angular motion.
+ - 16x2 LCD Display – To show servo angle.
+ - 3 Push Buttons – To control servo position.
+ - 5V Power Supply – To power the components.
+ - Breadboard & Jumper Wires – For circuit assembly.
+
+3. Hardware Connections:
+![image](https://github.com/user-attachments/assets/3c94f664-ce32-4171-ac19-f9431a4e4a82)
+
+4. Software Used:
+ - Arduino IDE
+ - Proteus
+
+4. Working of the Project:\
+System Initialization:
+ - The servo motor is initialized using servoMotor.attach(6).
+ - The LCD is configured using lcd.begin(16, 2).
+ - The push buttons are configured as inputs with internal pull-up resistors.
+
+Servo Motor Control Using Buttons:
+ - Pressing Button 1 moves the servo motor to 0°.
+ - Pressing Button 2 moves the servo motor to 90°.
+ - Pressing Button 3 moves the servo motor to 180°.
+
+LCD Display Updates:
+ - The LCD displays the current servo angle when a button is pressed.
+ - The LCD clears before displaying a new angle to ensure proper output visibility.
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/4d9250d6-1156-47ef-8cbc-7d1523332480)
+
+__Hardware Simulation:__
+
+__Project Code:__
+```
+#include <Arduino.h>
+#include <Servo.h>
+#include <LiquidCrystal.h>
+// Servo Motor and LCD Configuration
+Servo servoMotor;
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); // LCD Pins
+// Button Pins
+#define BUTTON1 2  // Move to 0 degrees
+#define BUTTON2 3  // Move to 90 degrees
+#define BUTTON3 4  // Move to 180 degrees
+void setup() {
+    servoMotor.attach(6); // Servo signal pin
+    lcd.begin(16, 2);
+    pinMode(BUTTON1, INPUT_PULLUP);
+    pinMode(BUTTON2, INPUT_PULLUP);
+    pinMode(BUTTON3, INPUT_PULLUP);
+    lcd.print("Servo Control");
+    delay(2000);
+    lcd.clear();
+}
+void loop() {
+    if (digitalRead(BUTTON1) == LOW) {
+        servoMotor.write(0); // Move servo to 0°
+        lcd.clear();
+        lcd.print("Angle: 0 Deg");
+    } else if (digitalRead(BUTTON2) == LOW) {
+        servoMotor.write(90); // Move servo to 90°
+        lcd.clear();
+        lcd.print("Angle: 90 Deg");
+    } else if (digitalRead(BUTTON3) == LOW) {
+        servoMotor.write(180); // Move servo to 180°
+        lcd.clear();
+        lcd.print("Angle: 180 Deg");
+    }
+}
+```
+
+_____________________________________________________________________________________________________________________________________
+
+
