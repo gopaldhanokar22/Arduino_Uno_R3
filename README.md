@@ -41,6 +41,12 @@ __Software Simulation:__
 
 __Hardware Simulation:__
 
+![IMG-20250330-WA0015](https://github.com/user-attachments/assets/9b1368b5-8892-4cd2-a33d-d312d4786d1d)
+
+![IMG-20250330-WA0022](https://github.com/user-attachments/assets/7928926e-89e1-4334-8b50-19211fcdbbf1)
+
+![IMG-20250330-WA0026](https://github.com/user-attachments/assets/ba14989e-22e4-498b-b422-9cb072cd897f)
+
 
 
 __Working:__\
@@ -245,7 +251,8 @@ __Software Simulation:__
 
 __Harware Simulation:__
 
-![IMG-20250330-WA0001](https://github.com/user-attachments/assets/1856767b-d5e3-4fff-a7bf-bbadebef17c9)
+![IMG-20250330-WA0011](https://github.com/user-attachments/assets/4bf6a767-5130-4dc9-8f33-70d9c9866970)
+
 
 __Project Code:__
 ```
@@ -355,6 +362,10 @@ __Software Simulation:__
 
 __Hardware Simulation:__
 
+![IMG-20250330-WA0027](https://github.com/user-attachments/assets/0ef20524-1f88-4ce7-a562-c9ef6c6a5974)
+
+![IMG-20250330-WA0017](https://github.com/user-attachments/assets/c185c3d8-2576-45eb-8691-54dda2e01303)
+
 __Project Code:__
 ```
 #include <LiquidCrystal.h> // Library for LCD interfacing
@@ -451,6 +462,16 @@ __Software Simulation:__
 ![image](https://github.com/user-attachments/assets/7a3cc621-df36-40e6-ab20-0ee5d3912fb4)
 
 __Hardware Simulation:__
+
+![IMG-20250330-WA0008](https://github.com/user-attachments/assets/15b34de2-9b54-435a-982d-2721558bb0ce)
+
+![IMG-20250330-WA0009](https://github.com/user-attachments/assets/a30b59cc-269a-42c0-b1b1-b25f481fcef7)
+
+![IMG-20250330-WA0010](https://github.com/user-attachments/assets/a406db90-e3ac-4afc-af84-61c68be3699f)
+
+![IMG-20250330-WA0013](https://github.com/user-attachments/assets/e532c9c0-daeb-46a7-8e14-fa2404cbab78)
+
+![IMG-20250330-WA0018](https://github.com/user-attachments/assets/834814fe-2fc6-48de-a725-c26244845250)
 
 __Project code:__
 ```
@@ -729,7 +750,12 @@ Displaying Temperature Data:
  - The temperature reading updates every second.
 
 __Software Simulation:__
+
 ![image](https://github.com/user-attachments/assets/b917bb12-15f8-4602-9557-e266bf23e9a0)
+
+__Hardware Simulation:__
+
+![IMG-20250330-WA0012](https://github.com/user-attachments/assets/1c647f5a-ccba-45d4-8b0b-d5e39df585b4)
 
 __Project Code:__
 ```
@@ -796,6 +822,10 @@ Displaying Data on LCD:
  - The data refreshes every 2 seconds.
 
 __Hardware Simulation:__
+
+![IMG-20250330-WA0024](https://github.com/user-attachments/assets/91ae0347-a17c-404f-9b58-e87b38618ffd)
+
+![IMG-20250330-WA0020](https://github.com/user-attachments/assets/76c4ce3a-0d49-43ee-b9e1-4be235a9c490)
 
 __Project Code:__
 ```
@@ -883,6 +913,10 @@ __Software Simulation:__
 
 __Hardware Simulation:__
 
+![IMG-20250330-WA0019](https://github.com/user-attachments/assets/e23a2b80-25d1-4430-abbd-4be026af3fdb)
+
+![IMG-20250330-WA0016](https://github.com/user-attachments/assets/7e6d51d9-d0a6-427f-a374-c6c8d814b4ab)
+
 __Project Code:__
 ```
 #include <Arduino.h>
@@ -956,6 +990,10 @@ __Software Simulation:__
 ![image](https://github.com/user-attachments/assets/93ed8ccc-6932-4c53-85ac-836d9231ff22)
 
 __Hardware Simulation:__
+
+![IMG-20250330-WA0021](https://github.com/user-attachments/assets/242eb069-209a-416c-a536-338158bc3b55)
+
+![IMG-20250330-WA0023](https://github.com/user-attachments/assets/92d18b94-876e-4709-a86c-9dc5adf21bfd)
 
 
 __Project Code:__
@@ -1094,6 +1132,10 @@ __Software Simulation:__
 
 
 __Hardware Simulation:__
+
+![IMG-20250330-WA0025](https://github.com/user-attachments/assets/75035074-2693-4002-ae1a-5be5d6385098)
+
+![IMG-20250330-WA0014](https://github.com/user-attachments/assets/7ded9f89-1489-4b10-8075-57d3c6015fcb)
 
 
 __Project Code:__
