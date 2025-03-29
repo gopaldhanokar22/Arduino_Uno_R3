@@ -41,6 +41,13 @@ __Software Simulation:__
 
 __Hardware Simulation:__
 
+![IMG-20250330-WA0003](https://github.com/user-attachments/assets/1efe3a05-1ea4-4193-b10f-6403e2d001f3)
+
+![IMG-20250330-WA0004](https://github.com/user-attachments/assets/0be3fc21-e2b4-482c-b9db-a8bd4e9e3c43)
+
+![IMG-20250330-WA0006](https://github.com/user-attachments/assets/d5daa3c6-7cbe-4c1d-bbd8-cf46e01caed9)
+
+![IMG-20250330-WA0007](https://github.com/user-attachments/assets/b2736d7a-143c-40a8-9b47-62527f8eaf4a)
 
 __Working:__\
 Traffic Light Sequence:\
@@ -243,6 +250,8 @@ __Software Simulation:__
 ![image](https://github.com/user-attachments/assets/eefc9e44-f439-45d5-b584-63b669121182)
 
 __Harware Simulation:__
+
+![IMG-20250330-WA0001](https://github.com/user-attachments/assets/1856767b-d5e3-4fff-a7bf-bbadebef17c9)
 
 __Project Code:__
 ```
@@ -953,6 +962,11 @@ __Software Simulation:__
 ![image](https://github.com/user-attachments/assets/93ed8ccc-6932-4c53-85ac-836d9231ff22)
 
 __Hardware Simulation:__
+
+![IMG-20250330-WA0002](https://github.com/user-attachments/assets/9aa30c7b-8f0c-4cd2-b4ad-2b7a55c0fb01)
+
+![IMG-20250330-WA0005](https://github.com/user-attachments/assets/42d5b634-a637-47e2-8e3c-aed8cec362e0)
+
 
 __Project Code:__
 ```
