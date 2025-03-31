@@ -1186,4 +1186,205 @@ void loop() {
 }
 ```
 
--------------------------------------------------------------------------------------------------------------------------------------
+__________________________________________________________________________________________________________________________________________________________________________________________________
+__14. Title: Vibration Sensor-Based LED Indicator Using SW-420 and Arduino Uno__
+
+*Objective:* To detect vibrations using the SW-420 vibration sensor and trigger an LED indicator when vibration is detected.
+
+*Functional Requirements:*\
+The vibration sensor (SW-420) detects movement or vibration.\
+When vibration is detected, the LED turns ON.\
+When there is no vibration, the LED remains OFF.\
+Data is displayed via the Serial Monitor for real-time monitoring.
+
+__Hardware Components Required:__
+ - Arduino Uno
+ - Vibration Sensor Module (SW-420)
+ - LED
+ - Resistor (220Ω for LED)
+ - Connecting Wires
+ - Breadboard (optional)
+
+__Hardware Connection:__
+ - Connect the VCC pin of the SW-420 sensor to the 5V pin of the Arduino.
+ - Connect the GND pin of the SW-420 sensor to the GND pin of the Arduino.
+ - Connect the DO (Digital Output) pin of the SW-420 sensor to Digital Pin 2 of the Arduino.
+ - Connect the LED anode (longer leg) to Digital Pin 3 of the Arduino.
+ - Connect the LED cathode (shorter leg) to GND via a 220Ω resistor.
+
+__Software Used:__
+- Arduino IDE
+
+__Working Principle:__
+ - The SW-420 vibration sensor consists of a spring and a metal contact.
+ - When there is movement or vibration, the circuit inside the sensor closes, sending a HIGH signal (1) to Arduino.
+ - The Arduino reads the sensor input and turns ON the LED when vibration is detected.
+ - When the sensor does not detect any movement, it sends a LOW signal (0), turning OFF the LED.
+
+__Hardware Simulation:__
+
+
+![vib1](https://github.com/user-attachments/assets/ad5e34b4-3b14-4a96-8b80-5b3aa27108be)
+
+
+![vib2](https://github.com/user-attachments/assets/3b5fadcd-9988-47ad-9ebc-b34be45f5fb5)
+
+__Project Code:__
+```
+#define LED 3
+#define Sensor 2
+void setup() {
+  Serial.begin(9600);
+  pinMode(Sensor, INPUT);
+  pinMode(LED, OUTPUT);
+}
+void loop() {
+  bool value = digitalRead(Sensor);
+  if (value == 1) {
+    digitalWrite(LED,HIGH);
+  }else if(value == 0){
+    digitalWrite(LED,LOW);
+  }
+}
+```
+___________________________________________________________________________________________________________________________________________________________________________________________________
+__15. Title: Bi-Directional Counter Using IR Sensors and LCD__
+
+*Objective:* To count the number of people entering and exiting a location using two IR sensors and display the count on an LCD.
+
+*Functional Requirements:*
+ - Detect entry and exit using two IR sensors.
+ - Increment the "IN" count when a person enters.
+ - Increment the "OUT" count when a person exits.
+ - Display the current count of people inside on an LCD.
+ - Use a timeout mechanism to prevent false triggers.
+
+__Hardware Components Required:__
+ - Arduino Uno
+ - Two IR Sensors (for entrance and exit detection)
+ - LCD Display (16x2) with I2C module
+ - Jumper Wires
+ - Resistors (if needed)
+ - Breadboard (optional)
+
+__Hardware Connection:__
+ - Connect IR Sensor 1 (Entrance Detector) to Digital Pin 2 of the Arduino.
+ - Connect IR Sensor 2 (Exit Detector) to Digital Pin 3 of the Arduino.
+ - Connect the LCD SDA pin to Arduino A4 (I2C SDA).
+ - Connect the LCD SCL pin to Arduino A5 (I2C SCL).
+ - Connect the LCD VCC to Arduino 5V and GND to Arduino GND.
+
+__Software Used:__
+ - Arduino IDE
+
+__Working:__
+ - Working Principle:
+ - The system uses two IR sensors placed at an entrance.
+ - When IR1 detects movement first, followed by IR2, it increments the "IN" count.
+ - When IR2 detects movement first, followed by IR1, it increments the "OUT" count.
+ - The total count of people inside is displayed on the LCD.
+ - A small timeout prevents false detections.
+
+__Hardware Simulation:__
+
+
+![bi_directional_2](https://github.com/user-attachments/assets/d2f9f7c7-5613-44cf-a4c2-4bc5445862c2)
+
+
+![bi_directional_1](https://github.com/user-attachments/assets/5c3ac67f-2628-47ea-adc7-5f700953834c)
+
+__Project Code:__
+```
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Initialize LCD with I2C address 0x27
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+const int irPin1 = 2; // IR sensor 1 (Entrance Detector)
+const int irPin2 = 3; // IR sensor 2 (Exit Detector)
+
+int in_count = 0;
+int out_count = 0;
+int current_count = 0;
+
+const unsigned long timeout = 50; // Object detection Timeout
+
+void setup() {
+  Serial.begin(9600); // Debugging purpose
+  
+  // Initialize LCD
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("IN: 0   OUT: 0");
+  lcd.setCursor(0, 1);
+  lcd.print("Current: 0");
+
+  // Configure IR sensor pins
+  pinMode(irPin1, INPUT_PULLUP);
+  pinMode(irPin2, INPUT_PULLUP);
+}
+
+void loop() {
+  if (digitalRead(irPin1) == LOW) {
+    unsigned long startTime = millis();
+    while ((millis() - startTime) < timeout) {
+      if (digitalRead(irPin2) == LOW) {
+        in_count++;
+        updateDisplay();
+        break;
+      }
+    }
+    while (!digitalRead(irPin1) || !digitalRead(irPin2)); // Wait for sensors to reset
+  }
+
+  if (digitalRead(irPin2) == LOW) {
+    unsigned long startTime = millis();
+    while ((millis() - startTime) < timeout) {
+      if (digitalRead(irPin1) == LOW) {
+        if (out_count < in_count) {
+          out_count++;
+          updateDisplay();
+          break;
+        }
+      }
+    }
+    while (!digitalRead(irPin1) || !digitalRead(irPin2)); // Wait for sensors to reset
+  }
+}
+
+void updateDisplay() {
+  lcd.setCursor(4, 0);
+  lcd.print("   ");
+  lcd.setCursor(4, 0);
+  lcd.print(in_count);
+
+  lcd.setCursor(13, 0);
+  lcd.print("   ");
+  lcd.setCursor(13, 0);
+  lcd.print(out_count);
+
+  current_count = in_count - out_count;
+  lcd.setCursor(9, 1);
+  lcd.print("   ");
+  lcd.setCursor(9, 1);
+  lcd.print(current_count);
+
+  Serial.print("IN: ");
+  Serial.print(in_count);
+  Serial.print(" OUT: ");
+  Serial.print(out_count);
+  Serial.print(" Current: ");
+  Serial.println(current_count);
+  
+  delay(100); // Small delay for LCD update
+}
+
+```
+
+__________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+
