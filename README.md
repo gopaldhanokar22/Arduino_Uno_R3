@@ -165,7 +165,7 @@ __Hardware Simulation:__
 
 ![IMG-20250331-WA0051](https://github.com/user-attachments/assets/ee5e0d35-dc29-42e2-b053-48656cd9a0ba)
 
-![IMG-20250331-WA0042](https://github.com/user-attachments/assets/5c0a5bfe-a83f-4d7b-8671-70d41e49bcc5)
+
 
 __Project code:__
 ```
