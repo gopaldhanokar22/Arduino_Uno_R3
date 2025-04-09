@@ -45,6 +45,7 @@ __Hardware Components Required:__
       - USB cable to power the Arduino
 
 __Hardware Connection:__
+
 ![image](https://github.com/user-attachments/assets/55672a59-e281-442f-a6ff-02eacbd696a1)
 
 
